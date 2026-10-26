@@ -1,7 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
   provider = "prisma-client"
@@ -10,4 +6,120 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+enum PlatformRole {
+  USER
+  ADMIN
+}
+
+enum MerchantRole {
+  OWNER
+  MANAGER
+  STAFF
+}
+
+model User {
+  id            String       @id
+  name          String
+  email         String       @unique
+  emailVerified Boolean      @default(false)
+  image         String?
+  platformRole  PlatformRole @default(USER)
+
+  memberships MerchantMember[]
+  sessions    Session[]
+  accounts    Account[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model Merchant {
+  id           String           @id @default(cuid())
+  businessName String
+  memberships  MerchantMember[]
+  stores       Store[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MerchantMember {
+  id         String       @id @default(cuid())
+  userId     String
+  merchantId String
+  role       MerchantRole @default(STAFF)
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+  merchant Merchant @relation(fields: [merchantId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, merchantId])
+  @@index([merchantId, role])
+}
+
+model Store {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  isActive    Boolean @default(true)
+
+  merchantId String
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([merchantId, isActive])
 }
