@@ -1,69 +1,186 @@
-import Image from "next/image";
 
-export default function Home() {
+import Link from "next/link";
+import styles from "./page.module.css";
+
+const products = [
+  {
+    id: 1,
+    name: "Everyday Wireless Headphones",
+    category: "Electronics",
+    price: "₹1,499",
+    oldPrice: "₹2,499",
+    discount: "40% OFF",
+    symbol: "🎧",
+    color: "lavender",
+  },
+  {
+    id: 2,
+    name: "Minimal Everyday Backpack",
+    category: "Fashion",
+    price: "₹899",
+    oldPrice: "₹1,499",
+    discount: "40% OFF",
+    symbol: "🎒",
+    color: "peach",
+  },
+  {
+    id: 3,
+    name: "Smart Fitness Watch",
+    category: "Electronics",
+    price: "₹2,199",
+    oldPrice: "₹3,499",
+    discount: "37% OFF",
+    symbol: "⌚",
+    color: "mint",
+  },
+  {
+    id: 4,
+    name: "Insulated Travel Bottle",
+    category: "Lifestyle",
+    price: "₹499",
+    oldPrice: "₹799",
+    discount: "38% OFF",
+    symbol: "🥤",
+    color: "blue",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className={styles.page}>
+      <div className={styles.announcement}>
+        Big deals. Short windows. Smart shopping.
+      </div>
+
+      <header className={styles.header}>
+        <Link href="/" className={styles.logo}>
+          Blitz<span>Cart</span>
+          <span className={styles.logoDot}>.</span>
+        </Link>
+
+        <nav className={styles.navigation} aria-label="Main navigation">
+          <Link href="#deals">Flash deals</Link>
+          <Link href="#products">Discover</Link>
+        </nav>
+
+        <div className={styles.headerActions}>
+          <Link className={styles.headerLink} href="/login">
+            Sign in
+          </Link>
+          <Link className={styles.accountButton} href="/register">
+            Join BlitzCart
+          </Link>
+        </div>
+      </header>
+
+      <section className={styles.hero} id="deals">
+        <div className={styles.heroContent}>
+          <span className={styles.eyebrow}>
+            YOUR NEXT GREAT FIND STARTS HERE
+          </span>
+
+          <h1>
+            Great finds.
+            <br />
+            <span>Little prices.</span>
+            <br />
+            Limited time.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p>
+            Discover exciting products and limited-time deals.
+            Your next favourite thing might be just a click away.
           </p>
+
+          <Link href="#products" className={styles.primaryButton}>
+            Explore the deals <span aria-hidden="true">→</span>
+          </Link>
+
+          <div className={styles.heroNote}>
+            <span aria-hidden="true">✦</span>
+            Browse freely. Sign in when you're ready to shop.
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className={styles.heroArtwork}>
+          <div className={styles.orbit} />
+          <div className={styles.heroCircle}>
+            <span className={styles.gift}>🎁</span>
+          </div>
+          <div className={styles.floatingCard}>
+            <span>FLASH DEAL</span>
+            <strong>Big savings</strong>
+            <small>Small shopping window</small>
+          </div>
+          <div className={styles.sparkleOne}>✦</div>
+          <div className={styles.sparkleTwo}>✧</div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className={styles.benefits} aria-label="Shopping benefits">
+        <div>
+          <span>✦</span>
+          <p>Limited-time offers</p>
+        </div>
+        <div>
+          <span>◇</span>
+          <p>Discover new finds</p>
+        </div>
+        <div>
+          <span>♡</span>
+          <p>Your shopping, your way</p>
+        </div>
+      </section>
+
+      <section className={styles.productsSection} id="products">
+        <div className={styles.sectionHeading}>
+          <div>
+            <span className={styles.eyebrow}>HANDPICKED FOR YOU</span>
+            <h2>Deals worth discovering<span>.</span></h2>
+            <p>Explore a few sample picks from our upcoming storefront.</p>
+          </div>
+
+          <span className={styles.sampleLabel}>SAMPLE PRODUCTS</span>
+        </div>
+
+        <div className={styles.productGrid}>
+          {products.map((product) => (
+            <article className={styles.productCard} key={product.id}>
+              <div
+                className={`${styles.productArtwork} ${styles[product.color]}`}
+              >
+                <span className={styles.discount}>
+                  {product.discount}
+                </span>
+                <span className={styles.productSymbol} aria-hidden="true">
+                  {product.symbol}
+                </span>
+              </div>
+
+              <div className={styles.productInfo}>
+                <span className={styles.category}>{product.category}</span>
+                <h3>{product.name}</h3>
+
+                <div className={styles.priceRow}>
+                  <strong>{product.price}</strong>
+                  <del>{product.oldPrice}</del>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p className={styles.disclaimer}>
+          These are demonstration products and prices, not live offers.
+        </p>
+      </section>
+
+      <footer className={styles.footer}>
+        <Link href="/" className={styles.logo}>
+          Blitz<span>Cart</span><span className={styles.logoDot}>.</span>
+        </Link>
+        <p>Discover more. Shop smarter.</p>
+      </footer>
+    </main>
   );
 }
