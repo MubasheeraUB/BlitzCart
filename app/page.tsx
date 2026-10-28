@@ -1,186 +1,38 @@
+import Navbar from '@/components/NavBar';
+import HeroSection from '@/components/HeroSection';
+import FlashSaleSection from '@/components/FlashSaleSection';
 
-import Link from "next/link";
-import styles from "./page.module.css";
+// TODO: Replace this with your actual Auth logic (e.g., getServerSession)
+const mockUser = null; // Set to null to see Guest view, or an object to see Logged-in view
+// const mockUser = { id: '1', name: 'Rahul', role: 'customer' }; 
 
-const products = [
-  {
-    id: 1,
-    name: "Everyday Wireless Headphones",
-    category: "Electronics",
-    price: "₹1,499",
-    oldPrice: "₹2,499",
-    discount: "40% OFF",
-    symbol: "🎧",
-    color: "lavender",
-  },
-  {
-    id: 2,
-    name: "Minimal Everyday Backpack",
-    category: "Fashion",
-    price: "₹899",
-    oldPrice: "₹1,499",
-    discount: "40% OFF",
-    symbol: "🎒",
-    color: "peach",
-  },
-  {
-    id: 3,
-    name: "Smart Fitness Watch",
-    category: "Electronics",
-    price: "₹2,199",
-    oldPrice: "₹3,499",
-    discount: "37% OFF",
-    symbol: "⌚",
-    color: "mint",
-  },
-  {
-    id: 4,
-    name: "Insulated Travel Bottle",
-    category: "Lifestyle",
-    price: "₹499",
-    oldPrice: "₹799",
-    discount: "38% OFF",
-    symbol: "🥤",
-    color: "blue",
-  },
-];
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className={styles.page}>
-      <div className={styles.announcement}>
-        Big deals. Short windows. Smart shopping.
-      </div>
-
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>
-          Blitz<span>Cart</span>
-          <span className={styles.logoDot}>.</span>
-        </Link>
-
-        <nav className={styles.navigation} aria-label="Main navigation">
-          <Link href="#deals">Flash deals</Link>
-          <Link href="#products">Discover</Link>
-        </nav>
-
-        <div className={styles.headerActions}>
-          <Link className={styles.headerLink} href="/login">
-            Sign in
-          </Link>
-          <Link className={styles.accountButton} href="/register">
-            Join BlitzCart
-          </Link>
-        </div>
-      </header>
-
-      <section className={styles.hero} id="deals">
-        <div className={styles.heroContent}>
-          <span className={styles.eyebrow}>
-            YOUR NEXT GREAT FIND STARTS HERE
-          </span>
-
-          <h1>
-            Great finds.
-            <br />
-            <span>Little prices.</span>
-            <br />
-            Limited time.
-          </h1>
-
-          <p>
-            Discover exciting products and limited-time deals.
-            Your next favourite thing might be just a click away.
-          </p>
-
-          <Link href="#products" className={styles.primaryButton}>
-            Explore the deals <span aria-hidden="true">→</span>
-          </Link>
-
-          <div className={styles.heroNote}>
-            <span aria-hidden="true">✦</span>
-            Browse freely. Sign in when you're ready to shop.
+    <main className="min-h-screen bg-gray-50">
+      {/* Pass the user to the Navbar */}
+      <Navbar user={mockUser} />
+      
+      <HeroSection />
+      
+      {/* You can add CategorySection here */}
+      
+      <FlashSaleSection />
+      
+      {/* Bottom Banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-blue-900 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between text-white">
+          <div className="flex items-center gap-4 mb-4 md:mb-0">
+            <div className="bg-yellow-400 p-3 rounded-full text-2xl">🏪</div>
+            <div>
+              <h2 className="text-xl font-bold">Become a Seller on BlitzCart</h2>
+              <p className="text-blue-200 text-sm">Grow your business with our multi-vendor marketplace platform.</p>
+            </div>
           </div>
-        </div>
-
-        <div className={styles.heroArtwork}>
-          <div className={styles.orbit} />
-          <div className={styles.heroCircle}>
-            <span className={styles.gift}>🎁</span>
-          </div>
-          <div className={styles.floatingCard}>
-            <span>FLASH DEAL</span>
-            <strong>Big savings</strong>
-            <small>Small shopping window</small>
-          </div>
-          <div className={styles.sparkleOne}>✦</div>
-          <div className={styles.sparkleTwo}>✧</div>
+          <button className="bg-white text-blue-900 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition">
+            Start Selling →
+          </button>
         </div>
       </section>
-
-      <section className={styles.benefits} aria-label="Shopping benefits">
-        <div>
-          <span>✦</span>
-          <p>Limited-time offers</p>
-        </div>
-        <div>
-          <span>◇</span>
-          <p>Discover new finds</p>
-        </div>
-        <div>
-          <span>♡</span>
-          <p>Your shopping, your way</p>
-        </div>
-      </section>
-
-      <section className={styles.productsSection} id="products">
-        <div className={styles.sectionHeading}>
-          <div>
-            <span className={styles.eyebrow}>HANDPICKED FOR YOU</span>
-            <h2>Deals worth discovering<span>.</span></h2>
-            <p>Explore a few sample picks from our upcoming storefront.</p>
-          </div>
-
-          <span className={styles.sampleLabel}>SAMPLE PRODUCTS</span>
-        </div>
-
-        <div className={styles.productGrid}>
-          {products.map((product) => (
-            <article className={styles.productCard} key={product.id}>
-              <div
-                className={`${styles.productArtwork} ${styles[product.color]}`}
-              >
-                <span className={styles.discount}>
-                  {product.discount}
-                </span>
-                <span className={styles.productSymbol} aria-hidden="true">
-                  {product.symbol}
-                </span>
-              </div>
-
-              <div className={styles.productInfo}>
-                <span className={styles.category}>{product.category}</span>
-                <h3>{product.name}</h3>
-
-                <div className={styles.priceRow}>
-                  <strong>{product.price}</strong>
-                  <del>{product.oldPrice}</del>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <p className={styles.disclaimer}>
-          These are demonstration products and prices, not live offers.
-        </p>
-      </section>
-
-      <footer className={styles.footer}>
-        <Link href="/" className={styles.logo}>
-          Blitz<span>Cart</span><span className={styles.logoDot}>.</span>
-        </Link>
-        <p>Discover more. Shop smarter.</p>
-      </footer>
     </main>
   );
 }
