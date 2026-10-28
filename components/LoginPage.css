@@ -85,7 +85,7 @@
 .bc-brand__title {
   margin: 0;
   font-size: clamp(40px, 4.6vw, 64px);
-  line-height: 1.02;
+  line-height: .82;
   font-weight: 800;
   letter-spacing: -0.03em;
 }
@@ -93,7 +93,7 @@
 .bc-brand__lead {
   margin: 0;
   font-size: 18px;
-  line-height: 1.55;
+  line-height: 1.35;
   color: #c9d3ea;
 }
 
