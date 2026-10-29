@@ -38,6 +38,7 @@ export default function HeroSection() {
           {/* Placeholder for Hero Image (Headphones/Watch) */}
           <div className="text-6xl">🎧  📱</div> 
         </div>
+        
 
         {/* Background Decorative Blob */}
         <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-blue-200 rounded-full opacity-50 blur-3xl"></div>
